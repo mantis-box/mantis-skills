@@ -102,7 +102,17 @@ main() {
   load_rules
   echo "[signal-matcher] Started with price_threshold=${price_threshold}% large_tx=\$${large_tx_threshold}"
 
+  local last_reload=$(date +%s)
+
   while IFS= read -r line || [[ -n "$line" ]]; do
+    # Reload rules every 60 seconds
+    local current_time=$(date +%s)
+    if (( current_time - last_reload > 60 )); then
+      load_rules
+      last_reload=$current_time
+      echo "[signal-matcher] Reloaded rules: price_threshold=${price_threshold}% large_tx=\$${large_tx_threshold}"
+    fi
+
     # Skip empty lines
     [[ -z "$line" ]] && continue
 
