@@ -1,0 +1,1 @@
+../../../scripts/market-condition.sh

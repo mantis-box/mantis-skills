@@ -1,0 +1,7 @@
+interface:
+  display_name: "Mantis Brain"
+  short_description: "Cold path market analysis — aggregates alpha signals into trading_rules.json for mantis-reflex"
+  default_prompt: "Use $mantis-brain for alpha hunter reports, market analysis, and updating trading_rules.json. Run market-condition for alpha reports with --update-rules to write trading rules."
+
+policy:
+  allow_implicit_invocation: true

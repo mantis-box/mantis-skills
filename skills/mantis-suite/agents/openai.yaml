@@ -1,0 +1,7 @@
+interface:
+  display_name: "Mantis Suite"
+  short_description: "Router for Mantis alpha hunter — cold path brain vs hot path reflex"
+  default_prompt: "Use $mantis-suite to route alpha hunter requests. Cold path (mantis-brain) for alpha reports and market analysis. Hot path (mantis-reflex) for real-time GPIO signal control."
+
+policy:
+  allow_implicit_invocation: true

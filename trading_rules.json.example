@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-04-15T00:00:00Z",
+  "market_mood": {
+    "trend": "neutral",
+    "score": 50,
+    "summary": "Market sentiment scan pending — run market-condition.sh to populate"
+  },
+  "signals": {
+    "buy": [],
+    "sell": [],
+    "hold": []
+  },
+  "top_opportunities": [],
+  "anomalies": [],
+  "whale_signals": [],
+  "reflex_rules": {
+    "price_change_threshold_pct": 5.0,
+    "large_tx_threshold_usd": 10000,
+    "whale_min_balance_usd": 50000,
+    "momentum_lookback_blocks": 5,
+    "refresh_interval_seconds": 60
+  }
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Mantis Reflex"
+  short_description: "Hot path real-time signal processing — WSS stream to GPIO LED control with sub-1ms latency"
+  default_prompt: "Use $mantis-reflex for real-time WSS monitoring, GPIO LED control, and daemon management. Start with mantis-daemon.sh start for hot path signal flow."
+
+policy:
+  allow_implicit_invocation: true

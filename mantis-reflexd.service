@@ -1,0 +1,31 @@
+[Unit]
+Description=Mantis Reflex Hot Path Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=mantis
+Group=gpio
+Environment="AVE_API_KEY=%env{AVE_API_KEY}"
+Environment="API_PLAN=pro"
+Environment="TRADING_RULES_FILE=/opt/mantis/trading_rules.json"
+Environment="MANTIS_PID=/var/run/mantis-reflexd.pid"
+Environment="MANTIS_LOG=/var/log/mantis-reflexd.log"
+ExecStart=/opt/mantis/scripts/mantis-daemon.sh start
+ExecStop=/opt/mantis/scripts/gpio-control.sh off
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Permissions for GPIO
+Device=/dev/gpiochip0
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/run /var/log /opt/mantis
+
+[Install]
+WantedBy=multi-user.target
