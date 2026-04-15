@@ -1,6 +1,6 @@
 # Mantis Alpha Hunter Suite
 
-Dual-path trading intelligence for SBC部署 — cold path (brain) for periodic analysis, hot path (reflex) for real-time GPIO signals.
+Dual-path trading intelligence for SBC部署 — cold path (brain) for periodic analysis every 5 minutes, hot path (reflex) for real-time GPIO signals with sub-millisecond latency.
 
 ## Architecture
 
@@ -12,12 +12,13 @@ Dual-path trading intelligence for SBC部署 — cold path (brain) for periodic 
    |  signals/smart-wallets)       |
    v                               |
 [trading_rules.json] ──────────────>
-   updated periodically            read every 60s
+   updated every 5 min             read every 60s
                                     |
                     mantis-daemon.sh
                     (ave-cli wss-repl)
                             |
                     signal-matcher.sh
+                    (<1ms threshold check)
                             |
                     gpio-control.sh
                             |
@@ -29,20 +30,32 @@ Dual-path trading intelligence for SBC部署 — cold path (brain) for periodic 
 | Skill | Purpose |
 |---|---|
 | `mantis-suite` | Router — routes to brain or reflex |
-| `mantis-brain` | Cold path — market analysis + alpha aggregation |
-| `mantis-reflex` | Hot path — real-time WSS + GPIO LED control |
+| `mantis-brain` | Cold path — market analysis + alpha aggregation (every 5 min) |
+| `mantis-reflex` | Hot path — real-time WSS + GPIO LED control (sub-millisecond) |
+| `mantis-telegram-ui` | ZeroClaw Telegram control plane — BotFather commands: status, startcron, stopcron, setrules |
 
 ## Quick Start
 
 ### Cold Path (Market Analysis)
 
 ```bash
-# Full alpha report
+# Full alpha report (triggered automatically every 5 min by ZeroClaw cron)
 ./scripts/market-condition.sh
 
 # Update trading rules
 ./scripts/market-condition.sh --update-rules
 ```
+
+### ZeroClaw Telegram Control Plane
+
+BotFather commands via Telegram — human oversight of the trading system:
+
+| Command | Description |
+|---|---|
+| `status` | Monitor cron, rules, and hardware state |
+| `startcron` | Enable automatic 5-minute market tracking |
+| `stopcron` | Suspend automatic updates (manual mode) |
+| `setrules` | Override `trading_rules.json` manually |
 
 ### Hot Path (GPIO Daemon)
 
