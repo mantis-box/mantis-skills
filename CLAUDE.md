@@ -73,6 +73,7 @@ market-condition.sh                  mantis-daemon.sh
 | `mantis-suite` | `skills/mantis-suite/` | Router — decides between brain/reflex |
 | `mantis-brain` | `skills/mantis-brain/` | Cold path — market analysis |
 | `mantis-reflex` | `skills/mantis-reflex/` | Hot path — real-time + GPIO |
+| `mantis-telegram-ui` | `skills/mantis-telegram-ui/` | Telegram control — BotFather menu commands |
 
 ## Dependencies
 
@@ -80,3 +81,14 @@ market-condition.sh                  mantis-daemon.sh
 - Linux GPIO sysfs — kernel support + `gpio` group membership
 - `bc` — math in market-condition.sh
 - `systemd` — service management for daemon
+
+## Telegram Integrations & BotFather
+
+You can integrate this entire suite with the ZeroClaw Telegram channel. When creating the bot with `@BotFather`, set the commands to:
+```text
+status - Monitor cron, rules, and hardware
+startcron - Start automatic 5-min market tracking
+stopcron - Suspend automatic updates (manual mode)
+setrules - Set custom trading rules manually
+```
+This requires the `mantis-telegram-ui` skill, which instructs the ZeroClaw agent how to resolve those slash-commands natively.

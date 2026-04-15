@@ -13,6 +13,7 @@ Quick routing reference for Claude Code agents working with the Mantis suite.
 | "stop daemon" | `mantis-reflex` | `stop-daemon` |
 | "what's trending", "hot tokens", "gainers/losers" | `mantis-brain` | `market-condition` |
 | "real-time price", "WSS stream" | `mantis-reflex` | `start-daemon` |
+| "/status", "/startcron", "/stopcron", "/setrules" | `mantis-telegram-ui` | (BotFather Command) |
 
 ## Cold Path (mantis-brain)
 
@@ -43,3 +44,17 @@ Quick routing reference for Claude Code agents working with the Mantis suite.
 - "turn on the green LED"
 - "watch for buy signals"
 - "check GPIO status"
+
+## Telegram Control (mantis-telegram-ui)
+
+**Use when**: User interacts via a Telegram integration using BotFather menu commands.
+
+**Commands**:
+- `/status` → checks cron schedule, reads current trading rules, and checks GPIO
+- `/startcron` → creates a ZeroClaw background cron for the cold path
+- `/stopcron` → pauses the automatic alpha hunting
+- `/setrules` → overrides `trading_rules.json` manually
+
+**典型场景**:
+- User clicks `/status` in their Telegram app
+- User wants to override the agent's trades manually
